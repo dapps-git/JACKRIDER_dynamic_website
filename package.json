@@ -1,0 +1,12 @@
+{
+  "name": "jack-rider-workspace",
+  "version": "1.0.0",
+  "description": "Jack Rider Tours & Travels - Full-Stack Dynamic Platform",
+  "scripts": {
+    "dev": "node dev.js",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm run dev",
+    "admin": "cd admin && npm run dev"
+  }
+}
+
