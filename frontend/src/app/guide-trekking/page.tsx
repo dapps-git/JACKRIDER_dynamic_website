@@ -21,56 +21,56 @@ export default function GuideTrekkingPage() {
       id: 'anamudi',
       name: 'Anamudi',
       district: 'Munnar, Idukki',
-      image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+      image: '/images/travel-photography-tea-road.jpg',
       difficulty: 'Moderate'
     },
     {
       id: 'meeshappulimala',
       name: 'Meeshappulimala',
       district: 'Rhodo Valley, Idukki',
-      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-meeshappulima.jpg',
       difficulty: 'Challenging'
     },
     {
       id: 'kolukkumalai',
       name: 'Kolukkumalai',
       district: 'High Ranges, Idukki',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-kolukkumalai.jpg',
       difficulty: 'Moderate'
     },
     {
       id: 'vagamon',
       name: 'Vagamon',
       district: 'Pine Valley & Meadows',
-      image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-vagamon.jpg',
       difficulty: 'Easy to Moderate'
     },
     {
       id: 'chembra-peak',
       name: 'Chembra Peak',
       district: 'Heart Lake, Wayanad',
-      image: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80',
+      image: '/images/dest-wayanad.jpg',
       difficulty: 'Moderate'
     },
     {
       id: 'nelliyampathy',
       name: 'Nelliyampathy',
       district: 'Seethargundu Ridge, Palakkad',
-      image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-nelliyampathy.jpg',
       difficulty: 'Moderate'
     },
     {
       id: 'mamalakkandam',
       name: 'Mamalakkandam',
       district: 'Virgin Forest River Trail',
-      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-mamalakkandam.jpg',
       difficulty: 'Adventure River'
     },
     {
       id: 'anakkulam',
       name: 'Anakkulam',
       district: 'Elephant Waterhole Trail',
-      image: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=800&q=80',
+      image: '/images/jeep-kanthalloor.jpg',
       difficulty: 'Easy Nature Walk'
     }
   ];

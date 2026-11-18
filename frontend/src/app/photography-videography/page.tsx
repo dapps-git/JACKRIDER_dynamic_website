@@ -15,7 +15,7 @@ export default function PhotographyVideographyIndexPage() {
       subtitle: 'Discover the World Through Our Lens',
       desc: 'Capturing destinations, landscapes, wildlife, and authentic travel moments across Kerala, India, and global horizons.',
       href: '/photography-videography/travel-photography',
-      image: '/images/travel-photography-lake.jpg',
+      image: '/images/travel-photography-tea-road.jpg',
       icon: Camera,
       cta: 'Explore Travel Photos'
     },
@@ -42,7 +42,7 @@ export default function PhotographyVideographyIndexPage() {
       subtitle: 'See the World from a New Perspective',
       desc: 'Aerial landscape videos, destination footage and cinematic drone shots captured in 4K resolution by certified UAV pilots.',
       href: '/photography-videography/drone-videography',
-      image: '/images/photo-gear-drone-camera.png',
+      image: '/images/drone-pilot-kerala.jpg',
       icon: Plane,
       cta: 'View Aerial Drone Shots'
     }

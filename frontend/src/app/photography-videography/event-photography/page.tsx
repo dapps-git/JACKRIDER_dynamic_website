@@ -72,7 +72,7 @@ export default function EventPhotographyPage() {
         {/* Background Image: Dreamy Sunset Wedding / Celebration */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80"
+            src="/images/event-photography-wedding.jpg"
             alt="Event Photography in Kerala - Jack Rider"
             fill
             priority

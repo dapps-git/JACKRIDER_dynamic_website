@@ -17,10 +17,10 @@ export default function TravelPhotographyPage() {
 
   const galleryItems = [
     {
-      title: 'Misty Tea Hills & Serene Reservoir',
+      title: 'Misty Tea Hills & Winding Mountain Road',
       location: 'Munnar & Mattupetty, Kerala',
       category: 'kerala',
-      image: '/images/dest-munnar.jpg',
+      image: '/images/travel-photography-tea-road.jpg',
       tag: 'Landscape'
     },
     {

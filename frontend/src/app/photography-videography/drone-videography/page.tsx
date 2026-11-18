@@ -20,7 +20,7 @@ export default function DroneVideographyPage() {
       location: 'Munnar High Altitude Peaks',
       category: 'landscape',
       altitude: '120m AGL',
-      image: '/images/dest-munnar.jpg',
+      image: '/images/drone-pilot-kerala.jpg',
       tag: 'Aerial Landscape'
     },
     {
@@ -32,12 +32,12 @@ export default function DroneVideographyPage() {
       tag: 'Water Patterns'
     },
     {
-      title: 'Luxury Heritage Resort & Cliffside Villas Fly-Through',
-      location: 'Kovalam & Wayanad Private Estates',
-      category: 'resort',
-      altitude: '40m AGL',
-      image: '/images/dest-kovalam.jpg',
-      tag: 'Property Showcase'
+      title: 'Scenic Tea Valley Curvature & High Pass Flyover',
+      location: 'Munnar Tea Estates, Kerala',
+      category: 'landscape',
+      altitude: '90m AGL',
+      image: '/images/travel-photography-tea-road.jpg',
+      tag: 'Aerial Cinema'
     },
     {
       title: '4x4 Off-Road Jeep Ridge Chase Drone Footage',
@@ -56,12 +56,12 @@ export default function DroneVideographyPage() {
       tag: 'FPV Action'
     },
     {
-      title: 'Dubai Marina & Desert Dune Aerial Cinema',
-      location: 'Dubai Skyline & Dunes',
-      category: 'landscape',
-      altitude: '150m AGL',
-      image: '/images/bg-international-dubai.jpg',
-      tag: 'International Aerial'
+      title: 'Luxury Heritage Resort & Cliffside Villas Fly-Through',
+      location: 'Kovalam & Wayanad Private Estates',
+      category: 'resort',
+      altitude: '40m AGL',
+      image: '/images/dest-kovalam.jpg',
+      tag: 'Property Showcase'
     }
   ];
 
@@ -245,7 +245,7 @@ export default function DroneVideographyPage() {
             <div className="md:col-span-7 lg:col-span-7 order-1 md:order-2 flex items-center justify-center">
               <div className="relative w-full aspect-[16/10] min-h-[280px] sm:min-h-[380px] md:min-h-[440px] lg:min-h-[500px] flex items-center justify-center">
                 <Image
-                  src="/images/photo-gear-drone-camera.png"
+                  src="/images/drone-about-white.jpg"
                   alt="4K Aerial Drone Cinematography Jack Rider"
                   fill
                   sizes="(max-width: 768px) 100vw, 60vw"
