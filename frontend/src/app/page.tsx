@@ -189,9 +189,17 @@ export default function HomePage() {
           <div className="md:hidden space-y-2 mb-4 text-center sm:text-left">
             <div className="flex items-center justify-center sm:justify-start gap-3">
               <span className="text-xs font-normal text-emerald-800 tracking-wider uppercase">
-                ABOUT JACK RIDER
+                ABOUT
               </span>
-              <span className="w-12 h-0.5 bg-emerald-600/70" />
+              <Image
+                src="/images/jack-rider-adventure-emblem-trimmed.png"
+                alt="Jack Rider Adventure Logo"
+                width={72}
+                height={72}
+                className="w-16 h-16 object-contain drop-shadow shrink-0"
+                priority
+              />
+              <span className="w-8 h-0.5 bg-emerald-600/70" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight leading-tight">
               We Turn Travel Dreams Into Memorable Experiences
@@ -219,10 +227,18 @@ export default function HomePage() {
               
               {/* Desktop-Only Heading */}
               <div className="hidden md:block space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-normal text-emerald-800 tracking-wider uppercase">
-                    ABOUT JACK RIDER
+                <div className="flex items-center gap-3.5">
+                  <span className="text-xs sm:text-sm font-normal text-emerald-800 tracking-wider uppercase">
+                    ABOUT
                   </span>
+                  <Image
+                    src="/images/jack-rider-adventure-emblem-trimmed.png"
+                    alt="Jack Rider Adventure Logo"
+                    width={96}
+                    height={96}
+                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain drop-shadow-md hover:scale-105 transition-transform shrink-0"
+                    priority
+                  />
                   <span className="w-12 h-0.5 bg-emerald-600/70" />
                 </div>
 
