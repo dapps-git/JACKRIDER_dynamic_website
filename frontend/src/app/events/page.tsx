@@ -376,74 +376,77 @@ export default function EventsPage() {
       </section>
 
       {/* 3. All 12 Curated Events & Activities Section */}
-      <section id="events-grid-section" className="w-full bg-slate-50/60 py-14 md:py-20 font-montserrat border-t border-slate-100">
+      <section id="events-grid-section" className="w-full bg-slate-50/60 py-8 sm:py-12 md:py-14 font-montserrat border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           
-          {/* Header */}
-          <div className="text-center space-y-2 mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-3 text-emerald-800">
-              <span className="w-10 sm:w-12 h-0.5 bg-emerald-600/70" />
-              <span className="text-xs font-normal tracking-wider uppercase">
+          {/* Header - Compact Spacing */}
+          <div className="text-center space-y-1.5 mb-5 sm:mb-6">
+            <div className="flex items-center justify-center gap-2 text-emerald-800">
+              <span className="w-8 sm:w-10 h-0.5 bg-emerald-600/70" />
+              <span className="text-[11px] font-normal tracking-wider uppercase">
                 CURATED ACTIVITIES
               </span>
-              <span className="w-10 sm:w-12 h-0.5 bg-emerald-600/70" />
+              <span className="w-8 sm:w-10 h-0.5 bg-emerald-600/70" />
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extralight text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-extralight text-slate-900 tracking-tight">
               Popular Events &amp; Experiences
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-light max-w-lg mx-auto">
-              Select an activity below to reserve individual experiences, family packages, or customized private tour schedules.
+            <p className="text-xs sm:text-[13px] text-slate-500 font-light max-w-md mx-auto">
+              Select an activity below to reserve individual experiences, family packages, or custom tour schedules.
             </p>
           </div>
 
-          {/* Category Filter Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
-            {[
-              { id: 'all', label: 'All Activities' },
-              { id: 'farm', label: 'Farm & Plantations' },
-              { id: 'adventure', label: 'Adventure & Thrills' },
-              { id: 'water', label: 'Lakes & Boating' },
-              { id: 'culture', label: 'Cultural & Wellness' },
-              { id: 'camping', label: 'Camping & Nightlife' },
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setSelectedCategory(tab.id as any);
-                  setSelectedEventId('all');
-                }}
-                className={`px-4 py-2 rounded-full text-xs transition-all ${
-                  selectedCategory === tab.id
-                    ? 'bg-emerald-800 text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:border-emerald-700 hover:text-emerald-900'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          {/* Unified Compact Filter & Dropdown Container */}
+          <div className="max-w-3xl mx-auto mb-6 sm:mb-8 space-y-3">
+            {/* Category Filter Tabs - Sleek & Compact */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              {[
+                { id: 'all', label: 'All Activities' },
+                { id: 'farm', label: 'Farm & Plantations' },
+                { id: 'adventure', label: 'Adventure & Thrills' },
+                { id: 'water', label: 'Lakes & Boating' },
+                { id: 'culture', label: 'Cultural & Wellness' },
+                { id: 'camping', label: 'Camping & Nightlife' },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setSelectedCategory(tab.id as any);
+                    setSelectedEventId('all');
+                  }}
+                  className={`px-3 py-1.5 rounded-full text-[11px] font-normal transition-all ${
+                    selectedCategory === tab.id
+                      ? 'bg-emerald-800 text-white shadow-sm'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:border-emerald-700 hover:text-emerald-900'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
 
-          {/* Quick Dropdown Selector */}
-          <div className="max-w-md mx-auto mb-10">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-800">
-                <MapPin className="w-4 h-4" />
-              </div>
-              <select
-                value={selectedEventId}
-                onChange={(e) => setSelectedEventId(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm font-normal text-slate-800 shadow-sm focus:outline-none focus:border-emerald-600 appearance-none cursor-pointer transition-colors"
-              >
-                <option value="all">Quick Select Event (All 12 Activities)</option>
-                {allEvents.map(evt => (
-                  <option key={evt.id} value={evt.id}>
-                    {evt.title} ({evt.location.split(',')[0]})
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
-                <ChevronDown className="w-4 h-4" />
+            {/* Quick Dropdown Selector - Compact */}
+            <div className="max-w-xs mx-auto">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-emerald-800">
+                  <MapPin className="w-3.5 h-3.5" />
+                </div>
+                <select
+                  value={selectedEventId}
+                  onChange={(e) => setSelectedEventId(e.target.value)}
+                  className="w-full pl-8 pr-8 py-2 bg-white border border-slate-200 rounded-lg text-xs font-normal text-slate-800 shadow-sm focus:outline-none focus:border-emerald-600 appearance-none cursor-pointer transition-colors"
+                >
+                  <option value="all">Quick Select Event (All 12)</option>
+                  {allEvents.map(evt => (
+                    <option key={evt.id} value={evt.id}>
+                      {evt.title.split('&')[0]} ({evt.location.split(',')[0]})
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </div>
               </div>
             </div>
           </div>
@@ -526,3 +529,4 @@ export default function EventsPage() {
     </div>
   );
 }
+

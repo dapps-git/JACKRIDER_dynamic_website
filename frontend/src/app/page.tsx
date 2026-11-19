@@ -826,24 +826,6 @@ export default function HomePage() {
                 From high-altitude glass bridges and wild elephant waterhole safaris to traditional honey &amp; spice farms, Kathakali martial shows, boating, and starlit campfire grilling.
               </p>
 
-              {/* 4 Quick Badges */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
-                {[
-                  { title: 'Honey Farm', href: '/events' },
-                  { title: 'Glass Bridge', href: '/events' },
-                  { title: 'Kathakali', href: '/events' },
-                  { title: 'Campfire BBQ', href: '/events' },
-                ].map((item, i) => (
-                  <Link
-                    key={i}
-                    href={item.href}
-                    className="px-2 py-1.5 rounded-lg bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 text-[11px] font-normal text-center border border-slate-200 transition-colors"
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
