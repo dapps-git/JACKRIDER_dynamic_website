@@ -25,6 +25,9 @@ export default function BookingModal() {
     serviceType: 'package',
     selectedItem: '',
     pickupLocation: '',
+    dropLocation: '',
+    taxiVehicle: 'Toyota Innova Crysta (MPV)',
+    tripType: 'One-Way',
     notes: '',
     totalAmount: 0
   });
@@ -75,14 +78,20 @@ export default function BookingModal() {
   };
 
   const handleWhatsAppDirect = () => {
+    const isTaxi = formData.serviceType === 'taxi';
     const text = encodeURIComponent(
       `Hello Jack Rider Travels!\n\nI would like to inquire about a reservation:\n` +
       `• Service: ${formData.serviceType.toUpperCase()}\n` +
-      `• Destination/Item: ${formData.selectedItem || 'General Inquiry'}\n` +
+      `• Package / Activity: ${formData.selectedItem || 'General Inquiry'}\n` +
+      (isTaxi
+        ? `• Vehicle Class: ${formData.taxiVehicle}\n` +
+          `• Pickup (From): ${formData.pickupLocation || 'Munnar / Cochin'}\n` +
+          `• Drop-off (To): ${formData.dropLocation || 'Kerala Destination'}\n` +
+          `• Trip Type: ${formData.tripType}\n`
+        : `• Pickup Location: ${formData.pickupLocation || 'Munnar / Kerala'}\n`) +
       `• Traveler Name: ${formData.customerName || 'Explorer'}\n` +
       `• Travel Date: ${formData.travelDate}\n` +
       `• Guests: ${formData.guests}\n` +
-      `• Pickup: ${formData.pickupLocation || 'Munnar / Kerala'}\n` +
       `${formData.notes ? `• Notes: ${formData.notes}\n` : ''}`
     );
     window.open(`https://wa.me/919847012345?text=${text}`, '_blank');
@@ -222,21 +231,110 @@ export default function BookingModal() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-normal text-slate-600 mb-1">
-                Pickup Location / Resort / City
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  value={formData.pickupLocation}
-                  onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
-                  placeholder="e.g. Munnar, Cochin Airport, Aluva..."
-                  className="w-full bg-slate-50 border border-slate-300 pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900 rounded-none"
-                />
+            {/* Taxi Specific Fields: Vehicle, Trip Type, From & To */}
+            {formData.serviceType === 'taxi' ? (
+              <div className="space-y-3 pt-1 border-t border-slate-200">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-normal text-slate-700 mb-1">
+                      Choose Vehicle Class *
+                    </label>
+                    <select
+                      value={formData.taxiVehicle}
+                      onChange={e => setFormData({ ...formData, taxiVehicle: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 rounded-none cursor-pointer"
+                    >
+                      <option value="Toyota Innova Crysta (MPV - 7 Seats)">Toyota Innova Crysta (MPV - 7 Seats)</option>
+                      <option value="Sedan (Swift Dzire / Etios - 4 Seats)">Sedan (Dzire / Etios - 4 Seats)</option>
+                      <option value="Tempo Traveller (12 to 20 Seats)">Tempo Traveller (12 - 20 Seats)</option>
+                      <option value="Luxury Tourist Bus (30 to 45 Seats)">Luxury Tourist Bus (30 - 45 Seats)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-normal text-slate-700 mb-1">
+                      Trip Type *
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, tripType: 'One-Way' })}
+                        className={`py-2 text-xs font-normal border transition-colors ${
+                          formData.tripType === 'One-Way'
+                            ? 'bg-slate-900 text-white border-slate-900'
+                            : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
+                        }`}
+                      >
+                        One-Way
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, tripType: 'Round-Trip' })}
+                        className={`py-2 text-xs font-normal border transition-colors ${
+                          formData.tripType === 'Round-Trip'
+                            ? 'bg-slate-900 text-white border-slate-900'
+                            : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
+                        }`}
+                      >
+                        Round-Trip
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-normal text-slate-700 mb-1">
+                      Pickup Point (From) *
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-emerald-800" />
+                      <input
+                        type="text"
+                        required
+                        value={formData.pickupLocation}
+                        onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
+                        placeholder="e.g. Cochin Airport (COK), Aluva, Munnar..."
+                        className="w-full bg-slate-50 border border-slate-300 pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900 rounded-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-normal text-slate-700 mb-1">
+                      Drop-off Destination (To) *
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
+                      <input
+                        type="text"
+                        required
+                        value={formData.dropLocation}
+                        onChange={e => setFormData({ ...formData, dropLocation: e.target.value })}
+                        placeholder="e.g. Munnar Resort, Alleppey, Thekkady..."
+                        className="w-full bg-slate-50 border border-slate-300 pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900 rounded-none"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-normal text-slate-600 mb-1">
+                  Pickup Location / Resort / City
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                  <input
+                    type="text"
+                    value={formData.pickupLocation}
+                    onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
+                    placeholder="e.g. Munnar, Cochin Airport, Aluva..."
+                    className="w-full bg-slate-50 border border-slate-300 pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900 rounded-none"
+                  />
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block text-xs font-normal text-slate-600 mb-1">

@@ -778,6 +778,111 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* 6. Events & Experiences Section (Added right after Photography) */}
+      <motion.section
+        id="events-section"
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full bg-slate-50/60 py-12 md:py-16 font-montserrat border-t border-slate-100"
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          
+          {/* Mobile-Only Heading (Placed First before Photo) */}
+          <div className="md:hidden space-y-2 mb-4 text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-3">
+              <span className="text-xs font-normal text-emerald-800 tracking-wider uppercase">
+                EVENTS &amp; EXPERIENCES
+              </span>
+              <span className="w-12 h-0.5 bg-emerald-600/70" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight leading-tight">
+              Curated Kerala Events &amp; Authentic Activities
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 items-center">
+            
+            {/* Desktop Left / Mobile Below Photo: Typography & Buttons */}
+            <div className="md:col-span-5 lg:col-span-5 space-y-4 order-2 md:order-1">
+              
+              {/* Desktop-Only Heading */}
+              <div className="hidden md:block space-y-2">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-normal text-emerald-800 tracking-wider uppercase">
+                    EVENTS &amp; EXPERIENCES
+                  </span>
+                  <span className="w-12 h-0.5 bg-emerald-600/70" />
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extralight text-slate-900 tracking-tight leading-tight">
+                  Curated Events &amp; <br />
+                  <span className="font-light">Authentic Activities</span>
+                </h2>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 font-light leading-relaxed max-w-lg">
+                From high-altitude glass bridges and wild elephant waterhole safaris to traditional honey &amp; spice farms, Kathakali martial shows, boating, and starlit campfire grilling.
+              </p>
+
+              {/* 4 Quick Badges */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                {[
+                  { title: 'Honey Farm', href: '/events' },
+                  { title: 'Glass Bridge', href: '/events' },
+                  { title: 'Kathakali', href: '/events' },
+                  { title: 'Campfire BBQ', href: '/events' },
+                ].map((item, i) => (
+                  <Link
+                    key={i}
+                    href={item.href}
+                    className="px-2 py-1.5 rounded-lg bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 text-[11px] font-normal text-center border border-slate-200 transition-colors"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/events"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0c5a3e] hover:bg-[#08432d] text-white font-normal text-xs sm:text-[13px] tracking-wide shadow-md transition-all group"
+                >
+                  <span>Explore All Events</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+
+                <button
+                  onClick={() => openBooking('events', 'Curated Kerala Event & Activity')}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-emerald-800 hover:bg-emerald-50 text-emerald-900 font-light text-xs sm:text-[13px] tracking-wide transition-all"
+                >
+                  <span>Book an Activity</span>
+                </button>
+              </div>
+
+            </div>
+
+            {/* Desktop Right / Mobile Middle: Events About Us Cutout Image */}
+            <div className="md:col-span-7 lg:col-span-7 order-1 md:order-2 flex items-center justify-center">
+              <div className="relative w-full aspect-[16/10] min-h-[280px] sm:min-h-[380px] md:min-h-[440px] lg:min-h-[500px] flex items-center justify-center group">
+                <Image
+                  src="/images/events-about-white.jpg"
+                  alt="Curated Kerala Events & Activities - Jack Rider"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  className="object-contain object-center scale-105 sm:scale-110 md:scale-115 hover:scale-[1.18] transition-transform duration-500"
+                  priority
+                  unoptimized
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </motion.section>
+
     </div>
   );
 }

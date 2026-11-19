@@ -300,6 +300,18 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Events & Activities */}
+            <Link
+              href="/events"
+              className={`font-normal transition-colors py-2 ${
+                scrolled
+                  ? 'text-slate-700 hover:text-emerald-800'
+                  : 'text-white/95 hover:text-white'
+              }`}
+            >
+              Events
+            </Link>
+
             {/* About Us */}
             <button
               onClick={() => scrollToSection('about-section')}
@@ -461,6 +473,13 @@ export default function Navbar() {
                   className="block py-1 hover:text-emerald-800"
                 >
                   Photography &amp; Videography
+                </Link>
+                <Link
+                  href="/events"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1 hover:text-emerald-800"
+                >
+                  Events &amp; Activities
                 </Link>
               </div>
             )}

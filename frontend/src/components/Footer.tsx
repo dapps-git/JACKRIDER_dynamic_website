@@ -50,13 +50,13 @@ export default function Footer() {
               <span>1. KERALA Holidays</span>
             </h4>
             <ul className="space-y-2 text-xs text-white/80 font-light">
+              <li><Link href="/events" className="hover:text-white text-left transition-colors flex items-center gap-1">Events &amp; Activities (12 Curated) &rarr;</Link></li>
               <li><Link href="/jeep-safari" className="hover:text-white text-left transition-colors flex items-center gap-1">4x4 Jeep Safari (12 Routes) &rarr;</Link></li>
               <li><Link href="/taxi-service" className="hover:text-white text-left transition-colors flex items-center gap-1">Taxi Service (Sedan/MPV/Bus) &rarr;</Link></li>
               <li><Link href="/guide-trekking" className="hover:text-white text-left transition-colors flex items-center gap-1">Guide &amp; Trekking (8 Routes) &rarr;</Link></li>
+              <li><Link href="/photography-videography" className="hover:text-white text-left transition-colors flex items-center gap-1">Photography &amp; Drone Video &rarr;</Link></li>
               <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Munnar Tea Hills &amp; Mist</button></li>
               <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Alleppey Luxury Houseboats</button></li>
-              <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Wayanad Rainforest &amp; Caves</button></li>
-              <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Thekkady Tiger Reserve</button></li>
             </ul>
           </div>
 

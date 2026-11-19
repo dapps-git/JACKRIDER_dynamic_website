@@ -4,14 +4,14 @@ import React, { createContext, useContext, useState } from 'react';
 
 interface BookingModalState {
   isOpen: boolean;
-  serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography';
+  serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography' | 'events';
   initialItem?: string;
   initialAmount?: number;
 }
 
 interface ThemeContextType {
   bookingModal: BookingModalState;
-  openBooking: (serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography', itemName?: string, amount?: number) => void;
+  openBooking: (serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography' | 'events', itemName?: string, amount?: number) => void;
   closeBooking: () => void;
 }
 
@@ -24,7 +24,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   const openBooking = (
-    serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography',
+    serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography' | 'events',
     itemName?: string,
     amount?: number
   ) => {
