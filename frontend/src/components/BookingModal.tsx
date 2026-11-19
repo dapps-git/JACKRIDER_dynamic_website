@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import {
   X,
@@ -85,6 +85,7 @@ export default function BookingModal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successResponse, setSuccessResponse] = useState<any | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (bookingModal.isOpen) {
@@ -240,15 +241,15 @@ export default function BookingModal() {
                 <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
                   Full Name *
                 </label>
-                <div className="relative">
-                  <User className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                  <User className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
                   <input
                     type="text"
                     required
                     value={formData.customerName}
                     onChange={e => setFormData({ ...formData, customerName: e.target.value })}
                     placeholder="Rahul Menon"
-                    className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
                   />
                 </div>
               </div>
@@ -257,51 +258,66 @@ export default function BookingModal() {
                 <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
                   Phone / WhatsApp *
                 </label>
-                <div className="relative">
-                  <Phone className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                  <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+91 98470 00000"
-                    className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
                   />
                 </div>
               </div>
             </div>
 
             {/* Row 2: Travel Date & Number of Guests in 1 compact row */}
-            <div className="grid grid-cols-2 gap-2">
-              <div>
+            <div className="grid grid-cols-12 gap-2">
+              <div className="col-span-7">
                 <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
                   Travel Date *
                 </label>
-                <div className="relative">
-                  <Calendar className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400" />
+                <div 
+                  onClick={() => {
+                    try {
+                      if (dateInputRef.current && 'showPicker' in HTMLInputElement.prototype) {
+                        dateInputRef.current.showPicker();
+                      } else {
+                        dateInputRef.current?.focus();
+                      }
+                    } catch {
+                      dateInputRef.current?.focus();
+                    }
+                  }}
+                  className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors cursor-pointer"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
                   <input
+                    ref={dateInputRef}
                     type="date"
                     required
+                    min={new Date().toISOString().split('T')[0]}
                     value={formData.travelDate}
                     onChange={e => setFormData({ ...formData, travelDate: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 focus:outline-none focus:ring-0 cursor-pointer min-w-0"
                   />
                 </div>
               </div>
 
-              <div>
+              <div className="col-span-5">
                 <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
                   Guests
                 </label>
-                <div className="relative">
-                  <Users className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                  <Users className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
                   <input
                     type="number"
                     min={1}
                     max={50}
                     value={formData.guests}
                     onChange={e => setFormData({ ...formData, guests: parseInt(e.target.value) || 1 })}
-                    className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900"
+                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 focus:outline-none focus:ring-0 min-w-0"
                   />
                 </div>
               </div>
@@ -320,7 +336,7 @@ export default function BookingModal() {
                     <select
                       value={formData.taxiVehicle}
                       onChange={e => setFormData({ ...formData, taxiVehicle: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                     >
                       <option value="Toyota Innova Crysta (MPV - 7 Seats)">Innova Crysta (7 Seats)</option>
                       <option value="Sedan (Dzire / Etios - 4 Seats)">Sedan (4 Seats)</option>
@@ -333,11 +349,11 @@ export default function BookingModal() {
                     <label className="block text-[11px] font-normal text-slate-700 mb-0.5">
                       Trip Type *
                     </label>
-                    <div className="grid grid-cols-2 gap-1">
+                    <div className="grid grid-cols-2 gap-1 h-8 sm:h-9">
                       <button
                         type="button"
                         onClick={() => setFormData({ ...formData, tripType: 'One-Way' })}
-                        className={`py-1.5 text-[11px] font-normal border transition-colors ${
+                        className={`h-full text-[11px] font-normal border transition-colors flex items-center justify-center ${
                           formData.tripType === 'One-Way'
                             ? 'bg-slate-900 text-white border-slate-900'
                             : 'bg-slate-50 text-slate-700 border-slate-300'
@@ -348,7 +364,7 @@ export default function BookingModal() {
                       <button
                         type="button"
                         onClick={() => setFormData({ ...formData, tripType: 'Round-Trip' })}
-                        className={`py-1.5 text-[11px] font-normal border transition-colors ${
+                        className={`h-full text-[11px] font-normal border transition-colors flex items-center justify-center ${
                           formData.tripType === 'Round-Trip'
                             ? 'bg-slate-900 text-white border-slate-900'
                             : 'bg-slate-50 text-slate-700 border-slate-300'
@@ -365,15 +381,15 @@ export default function BookingModal() {
                     <label className="block text-[11px] font-normal text-slate-700 mb-0.5">
                       Pickup (From) *
                     </label>
-                    <div className="relative">
-                      <MapPin className="absolute left-2.5 top-2 w-3.5 h-3.5 text-emerald-800" />
+                    <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-800 shrink-0 pointer-events-none" />
                       <input
                         type="text"
                         required
                         value={formData.pickupLocation}
                         onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                         placeholder="Airport / City"
-                        className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                        className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
                       />
                     </div>
                   </div>
@@ -382,15 +398,15 @@ export default function BookingModal() {
                     <label className="block text-[11px] font-normal text-slate-700 mb-0.5">
                       Drop-off (To) *
                     </label>
-                    <div className="relative">
-                      <MapPin className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-500" />
+                    <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                      <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0 pointer-events-none" />
                       <input
                         type="text"
                         required
                         value={formData.dropLocation}
                         onChange={e => setFormData({ ...formData, dropLocation: e.target.value })}
                         placeholder="Resort / City"
-                        className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                        className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
                       />
                     </div>
                   </div>
@@ -409,7 +425,7 @@ export default function BookingModal() {
                   <select
                     value={formData.selectedItem}
                     onChange={e => setFormData({ ...formData, selectedItem: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                    className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                   >
                     {KERALA_ACTIVITIES.map((act, idx) => (
                       <option key={idx} value={act}>
@@ -428,7 +444,7 @@ export default function BookingModal() {
                     <select
                       value={formData.timeSlot}
                       onChange={e => setFormData({ ...formData, timeSlot: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                     >
                       <option value="Morning (09:00 AM)">Morning (9:00 AM)</option>
                       <option value="Afternoon (02:00 PM)">Afternoon (2:00 PM)</option>
@@ -447,7 +463,7 @@ export default function BookingModal() {
                       value={formData.pickupLocation}
                       onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                       placeholder="e.g. Munnar, Thekkady"
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
                     />
                   </div>
                 </div>
@@ -465,7 +481,7 @@ export default function BookingModal() {
                     <select
                       value={formData.selectedItem}
                       onChange={e => setFormData({ ...formData, selectedItem: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                     >
                       {JEEP_ROUTES.map((route, i) => (
                         <option key={i} value={route}>{route.split(' ')[0]} Safari</option>
@@ -482,7 +498,7 @@ export default function BookingModal() {
                       value={formData.pickupLocation}
                       onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                       placeholder="e.g. Munnar Town"
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
                     />
                   </div>
                 </div>
@@ -500,7 +516,7 @@ export default function BookingModal() {
                     <select
                       value={formData.selectedItem}
                       onChange={e => setFormData({ ...formData, selectedItem: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                     >
                       {TREK_DESTINATIONS.map((trek, i) => (
                         <option key={i} value={trek}>{trek.split(' ')[0]} Trek</option>
@@ -517,7 +533,7 @@ export default function BookingModal() {
                       value={formData.pickupLocation}
                       onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                       placeholder="e.g. Munnar Base"
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
                     />
                   </div>
                 </div>
@@ -535,7 +551,7 @@ export default function BookingModal() {
                     <select
                       value={formData.selectedItem}
                       onChange={e => setFormData({ ...formData, selectedItem: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
                     >
                       {PHOTO_SHOOTS.map((shoot, i) => (
                         <option key={i} value={shoot}>{shoot}</option>
@@ -552,7 +568,7 @@ export default function BookingModal() {
                       value={formData.pickupLocation}
                       onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                       placeholder="e.g. Tea Estate, Resort"
-                      className="w-full bg-slate-50 border border-slate-300 px-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
                     />
                   </div>
                 </div>
@@ -565,14 +581,14 @@ export default function BookingModal() {
                 <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
                   Pickup Location / City
                 </label>
-                <div className="relative">
-                  <MapPin className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                  <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
                   <input
                     type="text"
                     value={formData.pickupLocation}
                     onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
                     placeholder="Munnar, Cochin Airport, Aluva..."
-                    className="w-full bg-slate-50 border border-slate-300 pl-8 pr-2 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
                   />
                 </div>
               </div>
@@ -588,7 +604,7 @@ export default function BookingModal() {
                 value={formData.notes}
                 onChange={e => setFormData({ ...formData, notes: e.target.value })}
                 placeholder="e.g. Sunrise timing, infant seat, flight no..."
-                className="w-full bg-slate-50 border border-slate-300 px-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
               />
             </div>
 
