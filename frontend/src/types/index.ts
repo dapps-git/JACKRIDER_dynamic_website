@@ -76,11 +76,12 @@ export interface BookingSubmission {
   customerName: string;
   phone: string;
   email?: string;
-  serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography';
+  serviceType: 'package' | 'jeep' | 'taxi' | 'trekking' | 'photography' | 'events' | 'hotel';
   selectedItem: string;
   travelDate: string;
   guests: number;
   pickupLocation: string;
+  hotelCategory?: string;
   notes?: string;
   amount?: number;
 }

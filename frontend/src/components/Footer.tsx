@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from '@/context/ThemeContext';
 import {
   Phone,
   Mail,
@@ -15,6 +16,8 @@ import {
 } from 'lucide-react';
 
 export default function Footer() {
+  const { openBooking } = useTheme();
+
   const scrollToDestinations = () => {
     const el = document.getElementById('destinations-section');
     if (el) {
@@ -55,6 +58,7 @@ export default function Footer() {
               <li><Link href="/taxi-service" className="hover:text-white text-left transition-colors flex items-center gap-1">Taxi Service (Sedan/MPV/Bus) &rarr;</Link></li>
               <li><Link href="/guide-trekking" className="hover:text-white text-left transition-colors flex items-center gap-1">Guide &amp; Trekking (8 Routes) &rarr;</Link></li>
               <li><Link href="/photography-videography" className="hover:text-white text-left transition-colors flex items-center gap-1">Photography &amp; Drone Video &rarr;</Link></li>
+              <li><button onClick={() => openBooking('hotel', 'Hotel & Resort Booking')} className="hover:text-white text-left transition-colors flex items-center gap-1">Hotel &amp; Stay Booking (5★ / 4★ / Homestay) &rarr;</button></li>
               <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Munnar Tea Hills &amp; Mist</button></li>
               <li><button onClick={scrollToDestinations} className="hover:text-white text-left transition-colors">Alleppey Luxury Houseboats</button></li>
             </ul>

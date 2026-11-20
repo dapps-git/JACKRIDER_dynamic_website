@@ -14,8 +14,20 @@ import {
   CheckCircle,
   AlertCircle,
   Clock,
-  Sparkles
+  Sparkles,
+  Hotel,
+  Bed,
+  Building
 } from 'lucide-react';
+
+const HOTEL_CATEGORIES = [
+  '5 Star',
+  '4 Star',
+  '3 Star',
+  'Budget Friendly',
+  'Home Stay',
+  'Tent Camping'
+];
 
 const KERALA_ACTIVITIES = [
   'Honey Farm Visit & Hive Extraction',
@@ -78,6 +90,8 @@ export default function BookingModal() {
     taxiVehicle: 'Toyota Innova Crysta (MPV - 7 Seats)',
     tripType: 'One-Way',
     timeSlot: 'Morning (09:00 AM)',
+    hotelCategory: '5 Star',
+    roomCount: '1 Room',
     notes: '',
     totalAmount: 0
   });
@@ -91,7 +105,8 @@ export default function BookingModal() {
     if (bookingModal.isOpen) {
       let defaultItem = bookingModal.initialItem || '';
       if (!defaultItem) {
-        if (bookingModal.serviceType === 'events') defaultItem = KERALA_ACTIVITIES[0];
+        if (bookingModal.serviceType === 'hotel') defaultItem = 'Kerala Hotel & Stay Booking';
+        else if (bookingModal.serviceType === 'events') defaultItem = KERALA_ACTIVITIES[0];
         else if (bookingModal.serviceType === 'jeep') defaultItem = JEEP_ROUTES[0];
         else if (bookingModal.serviceType === 'trekking') defaultItem = TREK_DESTINATIONS[0];
         else if (bookingModal.serviceType === 'photography') defaultItem = PHOTO_SHOOTS[0];
@@ -141,10 +156,19 @@ export default function BookingModal() {
   const handleWhatsAppDirect = () => {
     const isTaxi = formData.serviceType === 'taxi';
     const isEvent = formData.serviceType === 'events';
+    const isHotel = formData.serviceType === 'hotel';
     const text = encodeURIComponent(
       `Hello Jack Rider Travels!\n\nI would like to inquire about a reservation:\n` +
       `• Service: ${formData.serviceType.toUpperCase()}\n` +
       `• Selection: ${formData.selectedItem || 'General Inquiry'}\n` +
+      (isHotel
+        ? `• Stay Category: ${formData.hotelCategory}\n` +
+          `• Destination / City: ${formData.pickupLocation || 'Munnar / Kerala'}\n` +
+          `• Rooms: ${formData.roomCount}\n`
+        : '') +
+      (!isHotel && formData.hotelCategory && formData.hotelCategory !== 'Not Needed / Only Cab & Tour'
+        ? `• Hotel Preference: ${formData.hotelCategory}\n`
+        : '') +
       (isTaxi
         ? `• Vehicle Class: ${formData.taxiVehicle}\n` +
           `• Pickup (From): ${formData.pickupLocation || 'Munnar / Cochin'}\n` +
@@ -152,9 +176,9 @@ export default function BookingModal() {
           `• Trip Type: ${formData.tripType}\n`
         : '') +
       (isEvent ? `• Preferred Slot: ${formData.timeSlot}\n` : '') +
-      (!isTaxi ? `• Pickup Location: ${formData.pickupLocation || 'Munnar / Kerala'}\n` : '') +
+      (!isTaxi && !isHotel ? `• Pickup Location: ${formData.pickupLocation || 'Munnar / Kerala'}\n` : '') +
       `• Traveler Name: ${formData.customerName || 'Explorer'}\n` +
-      `• Travel Date: ${formData.travelDate}\n` +
+      `• Travel / Check-in Date: ${formData.travelDate}\n` +
       `• Guests: ${formData.guests}\n` +
       `${formData.notes ? `• Special Requests: ${formData.notes}\n` : ''}`
     );
@@ -163,6 +187,7 @@ export default function BookingModal() {
 
   const getModalTitle = () => {
     switch (formData.serviceType) {
+      case 'hotel': return 'Kerala Hotel & Stay Booking';
       case 'taxi': return 'Kerala Taxi Booking';
       case 'events': return 'Book an Activity / Event';
       case 'jeep': return '4x4 Jeep Safari Booking';
@@ -577,19 +602,112 @@ export default function BookingModal() {
 
             {/* 6. GENERAL TOUR PACKAGE */}
             {formData.serviceType === 'package' && (
-              <div>
-                <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
-                  Pickup Location / City
-                </label>
-                <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
-                  <input
-                    type="text"
-                    value={formData.pickupLocation}
-                    onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
-                    placeholder="Munnar, Cochin Airport, Aluva..."
-                    className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
-                  />
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[11px] font-normal text-slate-600 mb-0.5">
+                    Pickup Location / City
+                  </label>
+                  <div className="flex items-center w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 focus-within:border-slate-900 px-2.5 gap-2 transition-colors">
+                    <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 pointer-events-none" />
+                    <input
+                      type="text"
+                      value={formData.pickupLocation}
+                      onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
+                      placeholder="Munnar, Cochin Airport..."
+                      className="w-full bg-transparent border-none p-0 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 min-w-0"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-normal text-slate-700 mb-0.5 flex items-center gap-1">
+                    <Hotel className="w-3 h-3 text-emerald-700" />
+                    <span>Hotel / Stay Option</span>
+                  </label>
+                  <select
+                    value={formData.hotelCategory}
+                    onChange={e => setFormData({ ...formData, hotelCategory: e.target.value })}
+                    className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                  >
+                    <option value="Not Needed / Only Cab & Tour">Not Needed (Only Cab &amp; Tour)</option>
+                    {HOTEL_CATEGORIES.map((cat, i) => (
+                      <option key={i} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {/* 7. DEDICATED HOTEL & STAY BOOKING */}
+            {formData.serviceType === 'hotel' && (
+              <div className="space-y-2 pt-1 border-t border-slate-200">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-[11px] font-normal text-slate-700 mb-0.5 flex items-center gap-1">
+                      <Hotel className="w-3 h-3 text-emerald-700" />
+                      <span>Stay Category *</span>
+                    </label>
+                    <select
+                      value={formData.hotelCategory}
+                      onChange={e => setFormData({ ...formData, hotelCategory: e.target.value })}
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                    >
+                      {HOTEL_CATEGORIES.map((cat, i) => (
+                        <option key={i} value={cat}>{cat}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-normal text-slate-700 mb-0.5 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-slate-400" />
+                      <span>Destination / Town *</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.pickupLocation}
+                      onChange={e => setFormData({ ...formData, pickupLocation: e.target.value })}
+                      placeholder="e.g. Munnar, Wayanad"
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-900"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-[11px] font-normal text-slate-700 mb-0.5 flex items-center gap-1">
+                      <Bed className="w-3 h-3 text-slate-400" />
+                      <span>Rooms &amp; Preference</span>
+                    </label>
+                    <select
+                      value={formData.roomCount}
+                      onChange={e => setFormData({ ...formData, roomCount: e.target.value })}
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                    >
+                      <option value="1 Room">1 Room</option>
+                      <option value="2 Rooms">2 Rooms</option>
+                      <option value="3+ Rooms">3+ Rooms / Family</option>
+                      <option value="Luxury Suite / Villa">Luxury Suite / Villa</option>
+                      <option value="Plantation Cottage / Treehouse">Plantation Cottage / Treehouse</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-normal text-slate-700 mb-0.5">
+                      Budget Expectation
+                    </label>
+                    <select
+                      value={formData.taxiVehicle}
+                      onChange={e => setFormData({ ...formData, taxiVehicle: e.target.value })}
+                      className="w-full h-8 sm:h-9 bg-slate-50 border border-slate-300 px-2 text-xs text-slate-800 focus:outline-none focus:border-slate-900 cursor-pointer"
+                    >
+                      <option value="Standard / Best Available">Best Value / Standard</option>
+                      <option value="₹2,000 - ₹3,500 / Night">₹2,000 - ₹3,500 / Night</option>
+                      <option value="₹3,500 - ₹6,000 / Night">₹3,500 - ₹6,000 / Night</option>
+                      <option value="₹6,000+ Luxury / Night">₹6,000+ Luxury / Night</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             )}

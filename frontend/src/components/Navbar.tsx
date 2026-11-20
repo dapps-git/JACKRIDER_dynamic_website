@@ -13,7 +13,8 @@ import {
   Globe,
   Camera,
   Film,
-  Plane
+  Plane,
+  Hotel
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -260,6 +261,16 @@ export default function Navbar() {
                       <Compass className="w-3 h-3 text-emerald-700" />
                       <span>Guide & Trekking (8 Routes)</span>
                     </Link>
+                    <button
+                      onClick={() => {
+                        setActiveDropdown(null);
+                        openBooking('hotel', 'Kerala Hotel & Stay Booking');
+                      }}
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-50 hover:text-emerald-800 transition-colors flex items-center gap-2 font-normal text-slate-700"
+                    >
+                      <Hotel className="w-3 h-3 text-emerald-700" />
+                      <span>Hotel &amp; Stay Booking</span>
+                    </button>
                     <div className="pt-1 mt-1 border-t border-slate-100 text-[10.5px] font-normal text-emerald-800 uppercase tracking-wider px-2">
                       Photography &amp; Videography
                     </div>
@@ -467,6 +478,15 @@ export default function Navbar() {
                 >
                   Guide &amp; Trekking
                 </Link>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openBooking('hotel', 'Kerala Hotel & Stay Booking');
+                  }}
+                  className="block py-1 hover:text-emerald-800 text-left w-full"
+                >
+                  Hotel &amp; Stay Booking
+                </button>
                 <Link
                   href="/photography-videography"
                   onClick={() => setMobileMenuOpen(false)}
